@@ -157,18 +157,3 @@ WHERE Order_ID = 'Order_ID'
 DELETE FROM amazon_delivery1
 WHERE Order_ID = 'Order_ID'
 
-
-SELECT 
-    Store_Latitude, Store_Longitude,
-    Drop_Latitude, Drop_Longitude,
-    geography::Point(Store_Latitude, Store_Longitude, 4326).STDistance(
-    geography::Point(Drop_Latitude, Drop_Longitude, 4326)) / 1000 AS Distance_KM
-FROM amazon_delivery1
-
-
-ALTER TABLE amazon_delivery1
-ADD Distance_KM AS (
-    geography::Point(Store_Latitude, Store_Longitude, 4326).STDistance(
-    geography::Point(Drop_Latitude, Drop_Longitude, 4326)) / 1000
-) PERSISTED
-
